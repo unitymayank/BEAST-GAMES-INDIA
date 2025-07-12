@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Join Beast Games India</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Bangers&display=swap');
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body, html {
+      font-family: 'Bangers', cursive;
+      height: 100%;
+      overflow: hidden;
+      position: relative;
+      background: #000;
+      color: #fff;
+    }
+    .background {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: 0;
+    }
+    .circle {
+      position: absolute;
+      border-radius: 50%;
+      opacity: 0.3;
+      filter: blur(80px);
+      animation: float 25s linear infinite;
+    }
+    .circle1 { width: 250px; height: 250px; background: #ff0080; top: 10%; left: 15%; }
+    .circle2 { width: 300px; height: 300px; background: #00f2ff; top: 60%; left: 70%; }
+    .circle3 { width: 200px; height: 200px; background: #ffd700; top: 80%; left: 10%; }
+    .circle4 { width: 300px; height: 300px; background: #00ff91; top: 30%; left: 80%; }
+    @keyframes float {
+      0% { transform: translateY(0px) rotate(0deg); }
+      50% { transform: translateY(-30px) rotate(180deg); }
+      100% { transform: translateY(0px) rotate(360deg); }
+    }
+    .logo {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 200px;
+      opacity: 0.05;
+      transform: translate(-50%, -50%);
+      z-index: 1;
+      pointer-events: none;
+    }
+    .content {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 20px;
+    }
+    h1 {
+      font-size: 3rem;
+      text-shadow: 3px 3px 5px #000;
+      animation: pulse 2s infinite;
+    }
+    .btn, button, .whatsapp-btn {
+      margin-top: 20px;
+      background-color: #ff0080;
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn:hover, button:hover, .whatsapp-btn:hover {
+      background-color: #e60073;
+    }
+    @keyframes pulse {
+      0% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+      100% { transform: scale(1); }
+    }
+    .form-container, .share-container {
+      display: none;
+      width: 100%;
+      max-width: 400px;
+      background: rgba(255, 255, 255, 0.1);
+      padding: 30px;
+      border-radius: 15px;
+      backdrop-filter: blur(12px);
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      margin-top: 20px;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      font-family: Arial, sans-serif;
+      font-size: 1rem;
+      border-radius: 5px;
+      border: none;
+    }
+    label {
+      font-size: 1rem;
+      text-align: left;
+      display: block;
+      margin-top: 10px;
+    }
+    footer {
+      position: fixed;
+      bottom: 10px;
+      width: 100%;
+      text-align: center;
+      font-size: 0.9rem;
+      color: #ccc;
+      z-index: 3;
+    }
+    #top-left-logo {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 1000;
+      cursor: pointer;
+    }
+    #top-left-logo img {
+      width: 50px;
+    }
+    canvas#fireworks-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 999;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fireworks-canvas"></canvas>
+  <a id="top-left-logo" onclick="triggerFireworks()">
+    <img src="beast.png" alt="MrBeast Logo">
+  </a>
+  <div class="background">
+    <div class="circle circle1"></div>
+    <div class="circle circle2"></div>
+    <div class="circle circle3"></div>
+    <div class="circle circle4"></div>
+    <img class="logo" src="beast.png" alt="MrBeast Logo" />
+  </div>
+  <div class="content">
+    <div id="home">
+      <h1>Join Beast Games India</h1>
+      <button class="btn" onclick="showForm()">Join Now</button>
+    </div>
+    <div id="form" class="form-container">
+      <h1>Registration</h1>
+      <form onsubmit="submitForm(event)">
+        <label for="name">Full Name:</label>
+        <input type="text" id="name" required />
+        <label for="mobile">Mobile Number:</label>
+        <input type="tel" id="mobile" pattern="[0-9]{10}" required />
+        <label for="email">Email:</label>
+        <input type="email" id="email" required />
+        <label for="age">Age:</label>
+        <input type="number" id="age" min="1" max="120" required />
+        <label for="gender">Gender:</label>
+        <select id="gender" required>
+          <option value="">Select</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Other</option>
+        </select>
+        <button type="submit">Submit</button>
+      </form>
+    </div>
+    <div id="share" class="share-container">
+      <h1>You're In!</h1>
+      <p>🎉 To confirm your entry, share this with <strong>10 friends on WhatsApp</strong>!</p>
+      <p id="counter">Total Friends Shared: 0</p>
+      <a class="whatsapp-btn" target="_blank"
+        onclick="incrementShareCount()"
+        href="https://wa.me/?text=🔥 I just joined Beast Games India! You can win crazy prizes too! Join now: https://example.com 🔥">
+        Share on WhatsApp
+      </a>
+      <div id="reward" style="display: none; margin-top: 20px;">
+        <h2>🎁 Congratulations!</h2>
+        <p>You’ve shared with 10 friends. Here’s your reward:</p>
+        <button class="btn" onclick="claimReward()">Claim Reward</button>
+        <div id="ad-container" style="margin-top: 20px;"></div>
+      </div>
+    </div>
+  </div>
+  <footer>Inspired by MrBeast &copy; 2025</footer>
+
+  <script>
+    function showForm() {
+      document.getElementById('home').style.display = 'none';
+      document.getElementById('form').style.display = 'block';
+    }
+    function submitForm(event) {
+      event.preventDefault();
+      document.getElementById('form').style.display = 'none';
+      document.getElementById('share').style.display = 'block';
+      updateShareDisplay();
+    }
+    function incrementShareCount() {
+      let count = parseInt(localStorage.getItem('shareCount') || '0');
+      count++;
+      localStorage.setItem('shareCount', count);
+      updateShareDisplay();
+    }
+    function updateShareDisplay() {
+      const count = parseInt(localStorage.getItem('shareCount') || '0');
+      const counterElement = document.getElementById('counter');
+      const rewardElement = document.getElementById('reward');
+      if (counterElement) {
+        counterElement.innerText = "Total Friends Shared: " + count;
+      }
+      if (rewardElement) {
+        rewardElement.style.display = count >= 10 ? 'block' : 'none';
+      }
+    }
+    function claimReward() {
+      const adContainer = document.getElementById('ad-container');
+      const script1 = document.createElement('script');
+      script1.innerHTML = `
+        atOptions = {
+          'key' : '34524485eca5828ca1dde1acceca266b',
+          'format' : 'iframe',
+          'height' : 50,
+          'width' : 320,
+          'params' : {}
+        };
+      `;
+      const script2 = document.createElement('script');
+      script2.src = "//www.highperformanceformat.com/34524485eca5828ca1dde1acceca266b/invoke.js";
+      adContainer.innerHTML = '';
+      adContainer.appendChild(script1);
+      adContainer.appendChild(script2);
+    }
+    document.addEventListener('DOMContentLoaded', () => {
+      updateShareDisplay();
+    });
+
+    function triggerFireworks() {
+      const canvas = document.getElementById('fireworks-canvas');
+      const ctx = canvas.getContext('2d');
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      const fireworks = [];
+      function Firework(x, y) {
+        this.x = x;
+        this.y = y;
+        this.radius = 2;
+        this.color = `hsl(${Math.random() * 360}, 100%, 60%)`;
+        this.particles = [];
+        for (let i = 0; i < 40; i++) {
+          const angle = Math.random() * 2 * Math.PI;
+          const speed = Math.random() * 5 + 2;
+          this.particles.push({
+            x: x,
+            y: y,
+            dx: Math.cos(angle) * speed,
+            dy: Math.sin(angle) * speed,
+            life: 100
+          });
+        }
+      }
+      Firework.prototype.update = function () {
+        this.particles.forEach(p => {
+          p.x += p.dx;
+          p.y += p.dy;
+          p.dy += 0.05;
+          p.life--;
+        });
+      };
+      Firework.prototype.draw = function () {
+        this.particles.forEach(p => {
+          if (p.life > 0) {
+            ctx.beginPath();
+            ctx.arc(p.x, p.y, this.radius, 0, 2 * Math.PI);
+            ctx.fillStyle = this.color;
+            ctx.fill();
+          }
+        });
+      };
+      for (let i = 0; i < 5; i++) {
+        const x = Math.random() * canvas.width;
+        const y = Math.random() * canvas.height / 2;
+        fireworks.push(new Firework(x, y));
+      }
+      let duration = 60;
+      function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        fireworks.forEach(fw => {
+          fw.update();
+          fw.draw();
+        });
+        duration--;
+        if (duration > 0) {
+          requestAnimationFrame(animate);
+        }
+      }
+      animate();
+    }
+  </script>
+</body>
+</html>
